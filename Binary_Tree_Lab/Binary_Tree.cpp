@@ -1,9 +1,12 @@
 #include "Binary_Tree.h"
 #include <stdio.h>
 #include <iostream>
+#include <queue>
 
+//I don't like to use namespace but xcode was being weird
 using namespace std;
 
+//Struct for each node to have info and a right and left pointer
 struct Nodetype
 {
     Itemtype info;
@@ -11,7 +14,7 @@ struct Nodetype
     Nodetype* left;
 };
 
-
+//
 BiTree::BiTree()
 {
     root = nullptr;
@@ -77,11 +80,11 @@ void BiTree:: PutItem(Itemtype item)
 
 void BiTree::DeleteNode(Nodetype* &node)
 {
-    Nodetype* temp = node;
-    Nodetype* parent = nullptr;
+Nodetype* temp = node;
+Nodetype* parent = nullptr;
     if (node->left == nullptr && node->right == nullptr)
     {
-        delete node;
+        node = nullptr;
     }
     else if (node->left != nullptr && node->right == nullptr)
     {
@@ -102,14 +105,23 @@ void BiTree::DeleteNode(Nodetype* &node)
     else
     {
         temp = node->right;
+        int x=0;
         while (temp->left != nullptr)
         {
-            parent = temp;
-            temp = temp->left;
+            x++;
+        parent = temp;
+        temp = temp->left;
         }
+        if(x == 0)
+        {
+            node = temp;
+        }
+        else
+        {
         parent->left = temp->right;
         node->info = temp->info;
         delete temp;
+        }
     }
 }
 
@@ -148,23 +160,23 @@ void BiTree::Delete(Nodetype * &node,Itemtype item)
     }
 }
 
-void BiTree::PrintTree()
+void BiTree::PrintFTree()
 {
-    PrivatePrintTree( root );
+    PrivatePrintFTree( root );
 }
 
-void BiTree::PrivatePrintTree( Nodetype* &node)
+void BiTree::PrivatePrintFTree( Nodetype* &node)
 {
     if( root != nullptr )
     {
         if(node->left != nullptr)
         {
-            PrivatePrintTree(node->left);
+            PrivatePrintFTree(node->left);
         }
         cout<<node->info<<" ";
         if(node->right != nullptr)
         {
-            PrivatePrintTree(node->right);
+            PrivatePrintFTree(node->right);
         }
         
     }
@@ -178,3 +190,70 @@ void BiTree::DeleteItem(Itemtype item)
 {
         Delete(root, item);
 }
+
+void BiTree::PrintRTree()
+{
+    PrivateRPrint(root);
+}
+
+void BiTree::PrivateRPrint(Nodetype *&node)
+{
+    if( root != nullptr )
+       {
+           if(node->right != nullptr)
+           {
+               PrivateRPrint(node->right);
+           }
+           cout<<node->info<<" ";
+           if(node->left != nullptr)
+           {
+               PrivateRPrint(node->left);
+           }
+           
+       }
+       else
+       {
+           cout<<"The tree has no values :( . . . you made the tree sad"<<endl;
+       }
+}
+
+void BiTree::PrintTree()
+{
+    PrivateTPrint(root);
+}
+
+void BiTree::PrivateTPrint(Nodetype *&node)
+{
+    int level = 0;
+    queue<Nodetype*> q;
+    q.push(root);
+
+    while(true)
+    {
+        int length = q.size();
+        if( length == 0 )
+        {
+            break;
+        }
+        int i = 0;
+        cout<<"Level "<<level<<": ";
+        level++;
+       while(i<length)
+       {
+                      Nodetype* n = q.front();
+            cout<<n->info<<" ";
+
+            if(n->left != nullptr)
+            {
+              q.push(n->left);
+            }
+                if(n->right != nullptr)
+            {
+              q.push(n->right);
+            }
+            q.pop();
+            i++;
+           }
+           cout<<endl;
+         }
+    }

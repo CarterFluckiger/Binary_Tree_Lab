@@ -7,41 +7,43 @@ struct Nodetype;
 
 typedef int Itemtype;
 
-enum LeftorRight{Greater, Equal, Less };
 
 class BiTree
 {
 public:
-    BiTree();
-    ~BiTree();
+    BiTree( );
+    ~BiTree( );
     
 //Add and Delete items
     void AddItem(Itemtype item);
-    bool IsEmpty();
-    bool IsFull();
-    int GetLength();
-    Itemtype GetItem();
+    bool IsEmpty( );
+    bool IsFull( );
+    int GetLength( );
+    Itemtype GetItem( );
     void PutItem(Itemtype item);
-    void MakeEmpty();
-    void ResetTree();
+    void MakeEmpty( );
+    void ResetTree( );
+    void PrintFTree( );
     void PrintTree( );
+    void PrintRTree();
     
-    void DeleteItem(Itemtype item);
-    void DeleteNode(Itemtype item);
+       void DeleteItem(Itemtype item);
+    void DeleteNode();
     
 private:
+    
     Nodetype* root;
     int length;
     
     void Insert( Nodetype* &node, Itemtype item );
     void Delete( Nodetype* &node, Itemtype item );
-    void DeleteNodePrivate( Itemtype item, Nodetype* parent );
+    void DeleteNode( Nodetype* &node );
     
     
     //Print methods
-    void PrivatePrintTree( Nodetype* &node );
-    void TPrint();
-    void RPrint();
+    void PrivatePrintFTree( Nodetype* &node );
+    void PrivateTPrint( Nodetype* &node );
+    void PrivateRPrint( Nodetype* &node );
     
 };
 

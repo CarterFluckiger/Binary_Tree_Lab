@@ -8,17 +8,27 @@
 #include <iostream>
 #include "Binary_Tree.h"
 
+using namespace std;
+
+
 int main()
 {
+    //Have some stuff in the main for testing the functions
     BiTree Tree;
-    Tree.AddItem(5);
-    Tree.AddItem(6);
+    Tree.AddItem( 5 );
+    Tree.AddItem( 7 );
     Tree.AddItem( 3 );
-    Tree.AddItem(99);
-    Tree.AddItem(1);
-    Tree.DeleteItem(5);
-  
-    Tree.PrintTree();
+    Tree.AddItem( 97 );
+    Tree.AddItem( 9 );
+    Tree.AddItem( 1 );
+    Tree.AddItem( 2 );
+    Tree.AddItem( 4 );
+    Tree.DeleteItem(4);
+    
+    
+// This prints in the tree format
+    Tree.PrintTree( );
+    
     
     return 0;
 }
